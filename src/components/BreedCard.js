@@ -57,20 +57,24 @@ const BreedCard = ({ breed }) => {
             </Typography>
           </Grid>
           <Grid item>
-            <TextField
-              select
-              className={classes.select}
-              variant="outlined"
-              label="Sub-breed"
-              value={selectedSubBreed}
-              onChange={(e) => setSelectedSubBreed(e.target.value)}
-            >
-              {breed[1].map((subBreed) => (
-                <MenuItem key={subBreed} value={subBreed}>
-                  {capitalize(subBreed)}
-                </MenuItem>
-              ))}
-            </TextField>
+            {breed[1].length ? (
+              <TextField
+                select
+                className={classes.select}
+                variant="outlined"
+                label="Sub-breed"
+                value={selectedSubBreed}
+                onChange={(e) => setSelectedSubBreed(e.target.value)}
+              >
+                {breed[1].map((subBreed) => (
+                  <MenuItem key={subBreed} value={subBreed}>
+                    {capitalize(subBreed)}
+                  </MenuItem>
+                ))}
+              </TextField>
+            ) : (
+              <Typography> No sub-breeds </Typography>
+            )}
           </Grid>
           <Grid item>
             <Grid

@@ -9,10 +9,7 @@ export const fetchAllDogBreedsService = async () => {
     );
 
     if (isValidResponse(allDogBreedsResponse)) {
-      // filter out breeds that don't have a sub-breed
-      return Object.entries(allDogBreedsResponse.data.message).filter(
-        (breed) => breed[1].length
-      );
+      return Object.entries(allDogBreedsResponse.data.message);
     }
 
     return {};
