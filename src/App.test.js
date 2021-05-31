@@ -1,8 +1,10 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
+import App from "./App";
 
-test('renders learn react link', () => {
+test("renders the app and home component", () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  const pageTitle = screen.getByText(/Dog API/i);
+  const subTitle = screen.getByText(/Implementation by Michael Halisky/i);
+  expect(pageTitle).toBeInTheDocument();
+  expect(subTitle).toBeInTheDocument();
 });

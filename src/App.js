@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+
+// Components
+import Home from "./components/Home";
+import ViewBreed from "./components/ViewBreed";
+import ViewSubBreed from "./components/ViewSubBreed";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" component={Home} exact />
+          <Route path="/view/:breed" component={ViewBreed} exact />
+          <Route path="/view/:breed/:subBreed" component={ViewSubBreed} exact />
+          <Route render={() => <Redirect to={{ pathname: "/" }} />} />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }

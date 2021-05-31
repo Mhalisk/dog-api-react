@@ -1,70 +1,51 @@
-# Getting Started with Create React App
+# App Overview
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## index.js
 
-## Available Scripts
+- App entry point
+- Renders the APP component
 
-In the project directory, you can run:
+## App.js
 
-### `npm start`
+- React router handles the routing
+- Any unmatched routes will redirect to home
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Home.js
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Relies on Material UI for styles
+- Material UI Grid works on flexbox principles
+- The useEffect is the entrypoint which fetches all dog breeds, utilizing a service
+- This app utilizes localstorage to cache responses from the DogAPIService to utilize the data in other components, as well as to have data persist
+- Iterates over dog breeds and calls the BreedCard component for each breed.
 
-### `npm test`
+## BreedCard.js
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- By extracting each breed into its own card component, we can localize state for each breed
+- By not interacting with the select input for Sub-breed, if the user hits view, it will show you the top-level breed.
+- The select input is to demonstrate the ability to parse through and work with complex structures, as well as to demonstrate localized state
+- The clear button clears the select input and is disabled based off of selected state for sub-breed
+- Clicking view will take the user to the breed page
 
-### `npm run build`
+## ViewBreed.js
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- This component sets the state of current and next breed using the url
+- The useEffect determines whether the app needs to use cached data (if returning) or fetch data utilizing the DogApiService
+- By caching both the current breed images as well as the next breed images, we can make features possible such as displaying an image of the next breed on the button on the top of the page. This also shortens the load time of the next page since the data is collected and cached.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## DogApiService.js
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- This holds the services for fetching all dog breeds as well as fetching random breed images.
+- Both functions utilize a utility to validate the response, as well as handles errors
+- From what each functions return, the app never has to worry about undefined or null values, the service takes care of that.
 
-### `npm run eject`
+## Utils.js
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Capitalize is a function that capitalizes the first character of a string, which is used all over the app for displaying breed and sub-breed names
+- IsValidResponse validates responses from any service, great example of reusable code
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Tests
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- App.test.js to test the app component rendering
+- Utils.test.js to verify each utility is working correctly
+- DogApiService.test.js to verify each service. With more time, these tests would be more intricate validating status codes, data attributes, etc.
+- Tests on components and user functionality would also be a great additions to this app.
